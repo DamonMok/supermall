@@ -23,5 +23,7 @@ export default {
 
     height: 49px;
     box-shadow: 0 -1px 1px rgba(100, 100, 100, 0.1);/* 阴影 */
+
+    z-index: 999;
   }
 </style>
