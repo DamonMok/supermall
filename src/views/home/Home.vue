@@ -11,13 +11,17 @@
     <!-- 4个推荐 -->
     <home-recommend :recommends="recommend"></home-recommend>
 
+    <!-- 本周流行 -->
+    <home-feature></home-feature>
+
   </div>
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar';
+import NavBar from 'components/common/navbar/NavBar'
 import HomeSwiper from './childComps/HomeSwiper'
 import HomeRecommend from './childComps/HomeRecommend'
+import HomeFeature from './childComps/HomeFeature'
 
 import {getHomeDatas} from 'network/home';
 
@@ -32,7 +36,8 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
-    HomeRecommend
+    HomeRecommend,
+    HomeFeature
   },
   created() {
     getHomeDatas().then(res => {
@@ -43,9 +48,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+  #home {
+    padding-top: 44px;
+    padding-bottom: 400px;
+  }
+
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9;
   }
 </style>
