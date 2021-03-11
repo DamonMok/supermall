@@ -22,7 +22,7 @@
     </tab-control>
 
     <!-- 商品列表 -->
-    <goods-list :goods="goods[currentType].list"></goods-list>
+    <goods-list :goods="showGoods"></goods-list>
 
     <ul>
       <li>item1</li>
@@ -206,6 +206,11 @@ export default {
       });
     },
   },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list
+    }
+  }
 };
 </script>
 
