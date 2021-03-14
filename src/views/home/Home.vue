@@ -5,7 +5,7 @@
       <template #center>购物街</template>
     </nav-bar>
 
-    <scroll ref="scroll" class="scroll" :pullup="true" @scrollToEnd="loadMore">
+    <scroll ref="scroll" class="scroll" :probeType="3" :listenScroll="true" @scroll="scrolling" :pullup="true" @scrollToEnd="loadMore">
       <!-- 轮播图 -->
       <home-swiper :banners="banners"></home-swiper>
 
@@ -26,7 +26,7 @@
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
 
-    <back-top @click.native="backTop"></back-top>
+    <back-top @click.native="backTop" v-show="showBackTop"></back-top>
   </div>
 </template>
 
@@ -54,7 +54,8 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
-      currentType: 'pop'
+      currentType: 'pop',  // 当前商品信息的类型
+      showBackTop: false  // 是否滚动到顶部
     };
   },
   components: {
@@ -109,8 +110,14 @@ export default {
       });
     },
 
+    // 滚动到顶部
     backTop() {
       this.$refs.scroll.scrollTo(0, 0, 500)
+    },
+
+    // 滚动监听
+    scrolling(position) {
+      this.showBackTop = (-position.y) > 1000
     },
 
     loadMore() {
