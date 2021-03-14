@@ -5,7 +5,9 @@
       <template #center>购物街</template>
     </nav-bar>
 
-    <scroll ref="scroll" class="scroll" :probeType="3" :listenScroll="true" @scroll="scrolling" :pullup="true" @scrollToEnd="loadMore">
+    <scroll ref="scroll" class="scroll" 
+            :probeType="3" :listenScroll="true" @scroll="scrolling" 
+            :pullup="true" @scrollToEnd="loadMore">
       <!-- 轮播图 -->
       <home-swiper :banners="banners"></home-swiper>
 
@@ -120,8 +122,9 @@ export default {
       this.showBackTop = (-position.y) > 1000
     },
 
+    // 上拉加载更多
     loadMore() {
-      console.log('loadMore...');
+      this.getHomeGoods(this.currentType)
     }
   },
   computed: {
