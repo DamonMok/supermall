@@ -5,11 +5,19 @@
       <template #center>购物街</template>
     </nav-bar>
 
+    <!-- 悬浮（流行、新款、精选 tab-control） -->
+      <tab-control
+        :titles="['流行', '新款', '精选']"
+        class="tab-control"
+        @tabClick="tabClick"
+        ref="tabControlCeiling" v-show="showTabControlCeiling">
+      </tab-control>
+
     <scroll ref="scroll" class="scroll" 
             :probeType="3" :listenScroll="true" @scroll="scrolling" 
             :pullup="true" @scrollToEnd="loadMore">
       <!-- 轮播图 -->
-      <home-swiper :banners="banners"></home-swiper>
+      <home-swiper :banners="banners" @didLoadedImage="didLoadedImage"></home-swiper>
 
       <!-- 4个推荐 -->
       <home-recommend :recommends="recommend"></home-recommend>
@@ -21,7 +29,8 @@
       <tab-control
         :titles="['流行', '新款', '精选']"
         class="tab-control"
-        @tabClick="tabClick">
+        @tabClick="tabClick"
+        ref="tabControl">
       </tab-control>
 
       <!-- 商品列表 -->
@@ -57,7 +66,9 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: 'pop',  // 当前商品信息的类型
-      showBackTop: false  // 是否滚动到顶部
+      showBackTop: false,  // 是否滚动到顶部
+      tabControlOffsetTop: 0,  // tabControl的Y偏移量
+      showTabControlCeiling: false  // 是否展示吸顶的tabControl
     };
   },
   components: {
@@ -94,7 +105,9 @@ export default {
         default:
           break;
       }
-      console.log(this.currentType);
+      // console.log(this.currentType);
+      this.$refs.tabControlCeiling.currentIndex = index
+      this.$refs.tabControl.currentIndex = index
     },
 
     getHomeDatas() {
@@ -119,12 +132,20 @@ export default {
 
     // 滚动监听
     scrolling(position) {
-      this.showBackTop = (-position.y) > 1000
+      this.showBackTop = (-position.y) > 1000  // 显示或隐藏滚动到顶部的按钮
+
+      this.showTabControlCeiling = (-position.y) >this.tabControlOffsetTop ? true:false
     },
 
     // 上拉加载更多
     loadMore() {
       this.getHomeGoods(this.currentType)
+    },
+
+    // 图片加载完的监听回调
+    didLoadedImage() {
+      // 记录tabControl的Y方向偏移位置
+      this.tabControlOffsetTop = this.$refs.tabControl.$el.offsetTop;
     }
   },
   computed: {
@@ -137,7 +158,7 @@ export default {
 
 <style scoped>
 #home {
-  padding-top: 44px;
+  /* padding-top: 44px; */
   height: 100vh;
   position: relative;
 }
@@ -146,11 +167,11 @@ export default {
   background-color: var(--color-tint);
   color: #fff;
 
-  position: fixed;
+  /* position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  z-index: 9;
+  z-index: 9; */
 }
 
 .tab-control {
