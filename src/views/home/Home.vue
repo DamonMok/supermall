@@ -68,7 +68,8 @@ export default {
       currentType: 'pop',  // 当前商品信息的类型
       showBackTop: false,  // 是否滚动到顶部
       tabControlOffsetTop: 0,  // tabControl的Y偏移量
-      showTabControlCeiling: false  // 是否展示吸顶的tabControl
+      showTabControlCeiling: false,  // 是否展示吸顶的tabControl
+      offsetY: 0  // 当前滚动的Y值
     };
   },
   components: {
@@ -89,6 +90,17 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+  },
+  activated() {
+    this.$refs.scroll.refresh()
+    this.$refs.scroll.scrollTo(0, this.offsetY, 0)
+  },
+  deactivated() {
+    console.log('deactivated');
+    this.offsetY = this.$refs.scroll.scroll.y
+  },
+  destroyed() {
+    console.log('destroy');
   },
   methods: {
     tabClick(index) {
