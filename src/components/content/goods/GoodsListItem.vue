@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-list-item">
+  <div class="goods-list-item" @click="didClickedGoodsItem">
     <img :src="goodsItem.show.img" alt="">
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -19,6 +19,11 @@ export default {
       }
     }
   },
+  methods: {
+    didClickedGoodsItem() {
+      this.$router.push("/detail/" + this.goodsItem.iid)
+    }
+  }
 };
 </script>
 
