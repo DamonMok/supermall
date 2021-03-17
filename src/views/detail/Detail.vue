@@ -9,6 +9,8 @@
     <!-- 轮播图下方数据 -->
     <detail-base-info :goods="goods"></detail-base-info>
 
+    <detail-shop-info :shop="shop"></detail-shop-info>
+
   </div>
 </template>
 
@@ -16,7 +18,8 @@
 import DetailNavBar from 'views/detail/childComps/DetailNavBar'
 import DetailSwiper from 'views/detail/childComps/DetailSwiper'
 import DetailBaseInfo from 'views/detail/childComps/DetailBaseInfo'
-import {getDetailDatas, Goods} from 'network/detail'
+import DetailShopInfo from 'views/detail/childComps/DetailShopInfo'
+import {getDetailDatas, Goods, Shop} from 'network/detail'
 
 export default {
   name: 'detail',
@@ -24,13 +27,15 @@ export default {
     return {
       id: null,
       topImages: [],  // 轮播图
-      goods: {}  // 轮播图下方数据
+      goods: {},  // 轮播图下方数据
+      shop: {},  // 店铺信息
     };
   },
   components: {
     DetailNavBar,
     DetailSwiper,
-    DetailBaseInfo
+    DetailBaseInfo,
+    DetailShopInfo
   },
   created() {
     // 获取当前商品的id
@@ -45,6 +50,9 @@ export default {
 
       //2.获取商品信息
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
+
+      //3.获取店铺信息
+      this.shop = new Shop(data.shopInfo)
     })
   }
 };
