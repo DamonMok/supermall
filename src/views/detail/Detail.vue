@@ -6,33 +6,45 @@
     <!-- 轮播图 -->
     <detail-swiper :topImages="topImages"></detail-swiper>
 
+    <!-- 轮播图下方数据 -->
+    <detail-base-info :goods="goods"></detail-base-info>
+
   </div>
 </template>
 
 <script>
 import DetailNavBar from 'views/detail/childComps/DetailNavBar'
 import DetailSwiper from 'views/detail/childComps/DetailSwiper'
-import {getDetailDatas} from 'network/detail'
+import DetailBaseInfo from 'views/detail/childComps/DetailBaseInfo'
+import {getDetailDatas, Goods} from 'network/detail'
 
 export default {
   name: 'detail',
   data() {
     return {
       id: null,
-      topImages: []
+      topImages: [],  // 轮播图
+      goods: {}  // 轮播图下方数据
     };
   },
   components: {
     DetailNavBar,
-    DetailSwiper
+    DetailSwiper,
+    DetailBaseInfo
   },
   created() {
     // 获取当前商品的id
     this.id = this.$route.params.id
 
-    // 获取轮播图数据
+    
     getDetailDatas(this.id).then(res => {
-      this.topImages = res.data.result.itemInfo.topImages
+      const data = res.data.result
+
+      // 获取轮播图数据
+      this.topImages = data.itemInfo.topImages
+
+      //2.获取商品信息
+      this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
     })
   }
 };
