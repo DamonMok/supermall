@@ -99,9 +99,6 @@ export default {
     console.log('deactivated');
     this.offsetY = this.$refs.scroll.scroll.y
   },
-  destroyed() {
-    console.log('destroy');
-  },
   methods: {
     tabClick(index) {
       switch (index) {
