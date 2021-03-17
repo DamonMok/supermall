@@ -1,15 +1,18 @@
 <template>
   <div id="detail">
     <!-- 导航栏 -->
-    <detail-nav-bar></detail-nav-bar>
+    <detail-nav-bar class="nav-bar"></detail-nav-bar>
 
-    <!-- 轮播图 -->
-    <detail-swiper :topImages="topImages"></detail-swiper>
+    <scroll class="scroll">
+      <!-- 轮播图 -->
+      <detail-swiper :topImages="topImages"></detail-swiper>
 
-    <!-- 轮播图下方数据 -->
-    <detail-base-info :goods="goods"></detail-base-info>
+      <!-- 轮播图下方数据 -->
+      <detail-base-info :goods="goods"></detail-base-info>
 
-    <detail-shop-info :shop="shop"></detail-shop-info>
+      <!-- 店铺信息 -->
+      <detail-shop-info :shop="shop"></detail-shop-info>
+    </scroll>
 
   </div>
 </template>
@@ -19,7 +22,9 @@ import DetailNavBar from 'views/detail/childComps/DetailNavBar'
 import DetailSwiper from 'views/detail/childComps/DetailSwiper'
 import DetailBaseInfo from 'views/detail/childComps/DetailBaseInfo'
 import DetailShopInfo from 'views/detail/childComps/DetailShopInfo'
+
 import {getDetailDatas, Goods, Shop} from 'network/detail'
+import Scroll from 'components/common/scroll/Scroll'
 
 export default {
   name: 'detail',
@@ -35,7 +40,8 @@ export default {
     DetailNavBar,
     DetailSwiper,
     DetailBaseInfo,
-    DetailShopInfo
+    DetailShopInfo,
+    Scroll
   },
   created() {
     // 获取当前商品的id
@@ -57,3 +63,22 @@ export default {
   }
 };
 </script>
+
+<style lang="postcss" scoped>
+  #detail {
+    position: relative;
+    z-index: 9;
+    background-color: #fff;
+    height: 100vh;
+  }
+
+  .scroll {
+    height: calc(100% - 44px);
+  }
+
+  .nav-bar {
+    position: relative;
+    z-index: 9;
+    background-color: #fff;
+  }
+</style>
