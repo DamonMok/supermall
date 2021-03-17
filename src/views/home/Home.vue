@@ -96,7 +96,6 @@ export default {
     this.$refs.scroll.scrollTo(0, this.offsetY, 0)
   },
   deactivated() {
-    console.log('deactivated');
     this.offsetY = this.$refs.scroll.scroll.y
   },
   methods: {
