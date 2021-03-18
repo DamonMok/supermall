@@ -29,6 +29,9 @@
     <!-- 底部 -->
     <detail-bottom-bar class="bottom-bar"></detail-bottom-bar>
 
+    <!-- 滚动到顶部 -->
+    <back-top @click.native="backTop" v-show="showBackTop"></back-top>
+
   </div>
 </template>
 
@@ -42,12 +45,14 @@ import DetailParamInfo from 'views/detail/childComps/DetailParamInfo'
 import DetailComment from 'views/detail/childComps/DetailComment'
 import DetailBottomBar from 'views/detail/childComps/DetailBottomBar'
 import GoodsList from 'components/content/goods/GoodsList'
+import Scroll from 'components/common/scroll/Scroll'
 
 import {getDetailDatas, getRecommend, Goods, Shop, GoodsParam} from 'network/detail'
-import Scroll from 'components/common/scroll/Scroll'
+import {backTopMixin} from '@/common/mixin'
 
 export default {
   name: 'detail',
+  mixins: [backTopMixin],
   data() {
     return {
       id: null,
@@ -116,7 +121,7 @@ export default {
       this.themeOffsetY.push(this.$refs.comment.$el.offsetTop)
       this.themeOffsetY.push(this.$refs.recommends.$el.offsetTop)
       this.themeOffsetY.push(Number.MAX_VALUE)
-      console.log(this.themeOffsetY);
+      // console.log(this.themeOffsetY);
     },
 
     // 
@@ -138,6 +143,8 @@ export default {
           this.$refs.navBar.currentIndex = i
         }
       }
+
+      this.showBackTopBtn(position)
     },
   }
 };

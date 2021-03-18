@@ -37,6 +37,7 @@
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
 
+    <!-- 滚动到顶部 -->
     <back-top @click.native="backTop" v-show="showBackTop"></back-top>
   </div>
 </template>
@@ -50,12 +51,14 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/common/scroll/Scroll"
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
-import BackTop from "components/content/backTop/BackTop"
+
+import {backTopMixin} from "@/common/mixin"
 
 import { getHomeDatas, getHomeGoods } from "network/home";
 
 export default {
   name: "Home",
+  mixins: [backTopMixin],
   data() {
     return {
       banners: null,
@@ -66,7 +69,6 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: 'pop',  // 当前商品信息的类型
-      showBackTop: false,  // 是否滚动到顶部
       tabControlOffsetTop: 0,  // tabControl的Y偏移量
       showTabControlCeiling: false,  // 是否展示吸顶的tabControl
       offsetY: 0  // 当前滚动的Y值
@@ -80,7 +82,6 @@ export default {
     Scroll,
     TabControl,
     GoodsList,
-    BackTop
   },
   created() {
     // 获取首页数据
@@ -133,18 +134,14 @@ export default {
       });
     },
 
-    // 滚动到顶部
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500)
-    },
-
     // 滚动监听
     scrolling(position) {
-      this.showBackTop = (-position.y) > 1000  // 显示或隐藏滚动到顶部的按钮
-
+      // 是否显示悬停的tabControl
       this.showTabControlCeiling = (-position.y) >this.tabControlOffsetTop ? true:false
+      
+      // 是否显示滚回到顶部按钮
+      this.showBackTopBtn(position)
     },
-
     // 上拉加载更多
     loadMore() {
       this.getHomeGoods(this.currentType)
