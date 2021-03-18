@@ -27,6 +27,7 @@ export default {
   methods: {
     didClickedNavBar(index) {
       this.currentIndex = index
+      this.$emit("didClickedNavBar", index)
     },
 
     didClickedBack() {

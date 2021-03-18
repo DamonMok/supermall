@@ -1,9 +1,9 @@
 <template>
   <div id="detail">
     <!-- 导航栏 -->
-    <detail-nav-bar class="nav-bar"></detail-nav-bar>
+    <detail-nav-bar class="nav-bar" @didClickedNavBar="didClickedNavBar" ref="navBar"></detail-nav-bar>
 
-    <scroll class="scroll">
+    <scroll class="scroll" ref="scroll" :probeType="3" :listenScroll="true" @scroll="scrolling">
       <!-- 轮播图 -->
       <detail-swiper :topImages="topImages"></detail-swiper>
 
@@ -14,13 +14,13 @@
       <detail-shop-info :shop="shop"></detail-shop-info>
 
       <!-- 商品的详情信息 -->
-      <detail-goods-info :detailInfo="detailInfo"></detail-goods-info>
+      <detail-goods-info :detailInfo="detailInfo" @didLoadedImages="didLoadedImages"></detail-goods-info>
 
       <!-- 商品参数信息 -->
-      <detail-param-info :paramInfo="paramInfo"></detail-param-info>
+      <detail-param-info :paramInfo="paramInfo" ref="param"></detail-param-info>
 
       <!-- 评论 -->
-      <detail-comment :commentInfo="commentInfo"></detail-comment>
+      <detail-comment :commentInfo="commentInfo" ref="comment"></detail-comment>
 
       <!-- 推荐 -->
       <goods-list :goods="recommends" ref="recommends"></goods-list>
@@ -54,6 +54,8 @@ export default {
       paramInfo: {},  // 参数
       commentInfo: {},  // 评论
       recommends: [],  // 推荐
+      themeOffsetY: [],  // 记录商品、参数、评论、推荐组件的offsetY
+      currentIndex: 0
     };
   },
   components: {
@@ -96,11 +98,48 @@ export default {
 
     //7.获取推荐
     getRecommend().then((res)=> {
-      console.log(res.data.data.list);
+      // console.log(res.data.data.list);
       this.recommends = res.data.data.list
     })
+  },
+  methods: {
+    // 获取商品、参数、评论、推荐组件的offsetY
+    getThemeOffsetY() {
+      this.themeOffsetY = []
+      this.themeOffsetY.push(0)
+      this.themeOffsetY.push(this.$refs.param.$el.offsetTop)
+      this.themeOffsetY.push(this.$refs.comment.$el.offsetTop)
+      this.themeOffsetY.push(this.$refs.recommends.$el.offsetTop)
+      this.themeOffsetY.push(Number.MAX_VALUE)
+      console.log(this.themeOffsetY);
+    },
+
+    // 
+    didLoadedImages() {
+      this.getThemeOffsetY()
+    },
+
+    didClickedNavBar(index) {
+      // 组件根据点击导航进行联动
+      this.$refs.scroll.scrollTo(0, -this.themeOffsetY[index]+44, 500)
+    },
+
+    // 滚动监听
+    scrolling(position) {
+      // 导航根据组件滚动位置进行联动
+      for (let i = 0; i < this.themeOffsetY.length-1; i++) {  
+        if (this.currentIndex != i && (-position.y>=this.themeOffsetY[i] && -position.y<this.themeOffsetY[i+1])) {
+          this.currentIndex = i
+          this.$refs.navBar.currentIndex = i
+        }
+      }
+    },
   }
 };
+
+// const l = [1, 2, 3, 5, 8]
+// console.log(l.indexOf(6));
+
 </script>
 
 <style lang="postcss" scoped>
