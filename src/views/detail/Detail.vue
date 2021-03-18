@@ -26,6 +26,9 @@
       <goods-list :goods="recommends" ref="recommends"></goods-list>
     </scroll>
 
+    <!-- 底部 -->
+    <detail-bottom-bar class="bottom-bar"></detail-bottom-bar>
+
   </div>
 </template>
 
@@ -37,6 +40,7 @@ import DetailShopInfo from 'views/detail/childComps/DetailShopInfo'
 import DetailGoodsInfo from 'views/detail/childComps/DetailGoodsInfo'
 import DetailParamInfo from 'views/detail/childComps/DetailParamInfo'
 import DetailComment from 'views/detail/childComps/DetailComment'
+import DetailBottomBar from 'views/detail/childComps/DetailBottomBar'
 import GoodsList from 'components/content/goods/GoodsList'
 
 import {getDetailDatas, getRecommend, Goods, Shop, GoodsParam} from 'network/detail'
@@ -67,7 +71,8 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailComment,
-    GoodsList
+    GoodsList,
+    DetailBottomBar
   },
   created() {
     // 获取当前商品的id
@@ -151,7 +156,7 @@ export default {
   }
 
   .scroll {
-    height: calc(100% - 44px);
+    height: calc(100% - 44px - 58px);
     overflow: hidden;
   }
 
@@ -160,4 +165,5 @@ export default {
     z-index: 9;
     background-color: #fff;
   }
+
 </style>
