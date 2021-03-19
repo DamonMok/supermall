@@ -158,7 +158,7 @@ export default {
       product.price = this.goods.oldPrice;
       product.iid = this.id;
       //添加到购物车
-      this.$store.commit('addCart',product)
+      this.$store.dispatch('addToCart',product)
     }
   }
 };
