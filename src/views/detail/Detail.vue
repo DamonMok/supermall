@@ -27,7 +27,7 @@
     </scroll>
 
     <!-- 底部 -->
-    <detail-bottom-bar class="bottom-bar"></detail-bottom-bar>
+    <detail-bottom-bar class="bottom-bar" @addCart="addToCart"></detail-bottom-bar>
 
     <!-- 滚动到顶部 -->
     <back-top @click.native="backTop" v-show="showBackTop"></back-top>
@@ -144,8 +144,22 @@ export default {
         }
       }
 
+      // 是否显示滚动回到顶部
       this.showBackTopBtn(position)
     },
+
+    addToCart(){
+      console.log(this.topImages);
+      //获取数据
+      const product = {}
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.oldPrice;
+      product.iid = this.id;
+      //添加到购物车
+      this.$store.commit('addCart',product)
+    }
   }
 };
 
