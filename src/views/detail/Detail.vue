@@ -149,7 +149,6 @@ export default {
     },
 
     addToCart(){
-      console.log(this.topImages);
       //获取数据
       const product = {}
       product.image = this.topImages[0];

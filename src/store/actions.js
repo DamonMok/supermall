@@ -9,7 +9,7 @@ export default {
       // 已存在，数量+1
       context.commit(UPDATE_COUNT, oldProduct)
     } else {
-      // 为存在，加入购物车
+      // 未存在，加入购物车
       payload.count = 1
       context.commit(ADD_TO_CART, payload)
     }
