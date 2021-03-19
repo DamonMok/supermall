@@ -8,7 +8,7 @@
     </nav-bar>
 
     <!-- 商品列表 -->
-    <scroll class="scroll">
+    <scroll class="scroll" ref="scroll">
       <cart-list></cart-list>
     </scroll>
   </div>
@@ -34,6 +34,9 @@ export default {
     ...mapGetters({
       length: 'cartListLength'
     })
+  },
+  activated() {
+    this.$refs.scroll.refresh()
   }
 }
 </script>
