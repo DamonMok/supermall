@@ -7,6 +7,7 @@ export default {
   },
   [ADD_TO_CART](state, payload) {
     // 购物车未存在该商品，加入
+    payload.checked = true
     state.cartList.push(payload)
   }
 }

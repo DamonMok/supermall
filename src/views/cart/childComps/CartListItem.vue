@@ -2,7 +2,7 @@
   <div id="shop-item">
     <div class="item-selector">
       <CheckButton
-        :is-checked="itemInfo.isChecked"
+        :isChecked="itemInfo.checked"
         @click.native="checkClick"
       ></CheckButton>
     </div>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     checkClick() {
-      this.itemInfo.isChecked = !this.itemInfo.isChecked;
+      this.itemInfo.checked = !this.itemInfo.checked;
     },
     click() {
       this.$router.push("/detail/" + this.itemInfo.iid);
