@@ -154,7 +154,7 @@ export default {
       product.image = this.topImages[0];
       product.title = this.goods.title;
       product.desc = this.goods.desc;
-      product.price = this.goods.oldPrice;
+      product.price = this.goods.newPrice.replace('¥', '');
       product.iid = this.id;
       //添加到购物车
       this.$store.dispatch('addToCart',product)

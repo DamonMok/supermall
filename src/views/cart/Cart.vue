@@ -11,6 +11,9 @@
     <scroll class="scroll" ref="scroll">
       <cart-list></cart-list>
     </scroll>
+
+    <!-- 底部栏 -->
+    <cart-bottom-bar></cart-bottom-bar>
   </div>
 </template>
 
@@ -20,13 +23,15 @@ import Scroll from 'components/common/scroll/Scroll'
 import {mapGetters} from 'vuex'
 
 import CartList from './childComps/CartList'
+import CartBottomBar from './childComps/CartBottomBar'
 
 export default {
   name: 'cart',
   components: {
     NavBar,
     CartList,
-    Scroll
+    Scroll,
+    CartBottomBar
   },
   computed: {
     // 获取购物车商品的数量
@@ -53,7 +58,7 @@ export default {
   }
 
   .scroll {
-    height: calc(100% - 44px - 49px);
+    height: calc(100% - 44px - 49px - 40px);
     overflow: hidden;
   }
 </style>
