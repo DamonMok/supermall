@@ -29,16 +29,17 @@ export default {
   },
   methods: {
     checkclick(){
+      console.log("click");
       if (this.isSelectAll){
-        this.$store.getters.cartList.forEach(item => item.isChecked = false)
+        this.$store.getters.cartList.forEach(item => item.checked = false)
       }else {
-        this.$store.getters.cartList.forEach(item => item.isChecked = true)
+        this.$store.getters.cartList.forEach(item => item.checked = true)
       }
-      this.$toast.methods.isShow
+      // this.$toast.methods.isShow
     }
   },
   computed: {
-    ...mapGetters(['cartList']),
+    ...mapGetters(['cartList', 'cartListLength']),
     totalprice(){
       return this.cartList.filter(item=> item.checked
       ).reduce((previousValue,item)=>{
@@ -54,7 +55,7 @@ export default {
       if (this.cartlength === 0) {
         return false
       }else {
-        return !(this.$store.state.cartList.filter(item => !item.isChecked).length)
+        return !(this.$store.state.cartList.filter(item => !item.checked).length)
         }
       // return !(this.$store.state.cartList.filter(item => !item.isChecked).length)
       // return !this.cartList.find(item => !item.isChecked)
