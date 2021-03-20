@@ -31,7 +31,6 @@
 
     <!-- 滚动到顶部 -->
     <back-top @click.native="backTop" v-show="showBackTop"></back-top>
-
   </div>
 </template>
 
@@ -65,7 +64,7 @@ export default {
       commentInfo: {},  // 评论
       recommends: [],  // 推荐
       themeOffsetY: [],  // 记录商品、参数、评论、推荐组件的offsetY
-      currentIndex: 0
+      currentIndex: 0,
     };
   },
   components: {
@@ -78,7 +77,7 @@ export default {
     DetailParamInfo,
     DetailComment,
     GoodsList,
-    DetailBottomBar
+    DetailBottomBar,
   },
   created() {
     // 获取当前商品的id
@@ -168,6 +167,7 @@ export default {
       // 第二种调用actions方法
       this.addToCart(product).then(res => {
         console.log(res);
+        this.$toast.show()
       })
     }
   }
