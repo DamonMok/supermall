@@ -27,7 +27,7 @@
     </scroll>
 
     <!-- 底部 -->
-    <detail-bottom-bar class="bottom-bar" @addCart="addToCart"></detail-bottom-bar>
+    <detail-bottom-bar class="bottom-bar" @addCart="addCart"></detail-bottom-bar>
 
     <!-- 滚动到顶部 -->
     <back-top @click.native="backTop" v-show="showBackTop"></back-top>
@@ -49,6 +49,7 @@ import Scroll from 'components/common/scroll/Scroll'
 
 import {getDetailDatas, getRecommend, Goods, Shop, GoodsParam} from 'network/detail'
 import {backTopMixin} from '@/common/mixin'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'detail',
@@ -113,6 +114,8 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['addToCart']),
+
     // 获取商品、参数、评论、推荐组件的offsetY
     getThemeOffsetY() {
       this.themeOffsetY = []
@@ -148,7 +151,7 @@ export default {
       this.showBackTopBtn(position)
     },
 
-    addToCart(){
+    addCart(){
       //获取数据
       const product = {}
       product.image = this.topImages[0];
@@ -157,7 +160,15 @@ export default {
       product.price = this.goods.nowPrice;
       product.iid = this.id;
       //添加到购物车
-      this.$store.dispatch('addToCart',product)
+      // 第一种调用actions方法
+      // this.$store.dispatch('addToCart',product).then(res => {
+      //   console.log(res);
+      // })
+
+      // 第二种调用actions方法
+      this.addToCart(product).then(res => {
+        console.log(res);
+      })
     }
   }
 };
