@@ -58,7 +58,7 @@ export default {
   }
 
   .scroll {
-    height: calc(100% - 44px - 49px - 40px);
+    height: calc(100% - 44px - 49px - 49px);
     overflow: hidden;
   }
 </style>

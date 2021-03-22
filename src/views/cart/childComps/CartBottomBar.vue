@@ -77,8 +77,9 @@ export default {
   background-color: #dbe5ec;
   position: relative;
   display: flex;
-  height: 40px;
-  line-height: 40px;
+  height: 49px;
+  line-height: 49px;
+  z-index: 9;
 }
 .check-button{
   width: 20px;
