@@ -110,7 +110,6 @@
   }
 
   .shop-middle-right table {
-    width: 120px;
     margin-left: 30px;
   }
 

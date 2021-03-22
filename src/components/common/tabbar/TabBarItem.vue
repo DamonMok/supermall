@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-bar-item" @click="itemClick">
+  <div class="i-tab-bar-item" @click="itemClick">
     <div v-show="!isActive"><slot name="item-icon"></slot></div>
     <div v-show="isActive"><slot name="item-icon-active"></slot></div>
     <div :style="activeStyle"><slot name="item-text"></slot></div>
@@ -40,13 +40,13 @@ export default {
 </script>
 
 <style>
-  .tab-bar-item {
+  .i-tab-bar-item {
     flex: 1;/* 平分弹性布局的水平空间 */
     text-align: center;
     font-size: 14px;
   }
 
-  .tab-bar-item img {
+  .i-tab-bar-item img {
     width: 24px;
     height: 24px;
     margin-top: 3px;

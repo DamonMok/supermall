@@ -1,5 +1,5 @@
 <template>
-    <div id="tab-bar">
+    <div class="tab-bar">
         <slot></slot>
     </div>
 </template>
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style>
-  #tab-bar {
+  .tab-bar {
     display: flex;/* 水平弹性布局 */
     background-color: #f6f6f6;
 
